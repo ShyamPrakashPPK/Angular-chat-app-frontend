@@ -1,9 +1,9 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="showScreen">
   <div class="row">
     <div class="col-md-4">
       <div class="user-list-card">
         <div class="user-card" *ngFor="let user of userList"
-          [ngClass]="user?.phone === selectedUser?.phone ? 'active' : ''" (click)="selectedUser(user?.phone)">
+          [ngClass]="user?.phone === selectedUser?.phone ? 'active' : ''" (click)="selectUserHandler(user.phone)">
 
           <img [src]="user?.image" [alt]="user?.name" class="avatar">
 
@@ -77,7 +77,7 @@
   </div>
 
   <div class="model-footer">
-    <button class="btn">
+    <button class="btn" (click)="login(d )">
       Login
     </button>
   </div>
