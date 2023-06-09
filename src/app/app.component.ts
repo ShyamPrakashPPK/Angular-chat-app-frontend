@@ -12,21 +12,20 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   @ViewChild('popup', { static: false }) popup: any;
 
-  public roomId!: string|null;
+  public roomId: any;
   public messageText!: string;
   public messageArray: { user: string, message: string }[] = [];
-  private storageArray = [];
+  private storageArray:any = [];
 
   public showScreen = false;
   public phone!: string;
   public currentUser:any;
   public selectedUser:any;
-
   public userList = [
     {
       id: 1,
       name: 'The Swag Coder',
-      phone: '9876598765',
+      phone: '9446791982',
       image: 'assets/user/user-1.png',
       roomId: {
         2: 'room-1',
@@ -37,7 +36,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     {
       id: 2,
       name: 'Wade Warren',
-      phone: '9876543210',
+      phone: '9074488318',
       image: 'assets/user/user-2.png',
       roomId: {
         1: 'room-1',
@@ -76,14 +75,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.chatService.getMessage()
+    const message=this.chatService.getMessage()
+    
       .subscribe((data: { user: string, room: string, message: string }) => {
         this.messageArray.push(data);
         if (this.roomId) {
           setTimeout(() => {
             this.storageArray = this.chatService.getStorage();
-            const storeIndex = this.storageArray
-              .findIndex((storage) => storage.roomId === this.roomId);
+            const storeIndex:any = this.storageArray
+              .findIndex((storage:any) => storage.roomId === this.roomId);
             this.messageArray = this.storageArray[storeIndex].chats;
           }, 500);
         }
@@ -115,10 +115,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.storageArray = this.chatService.getStorage();
     const storeIndex = this.storageArray
-      .findIndex((storage) => storage.roomId === this.roomId);
-
+    .findIndex((storage:any) => storage.roomId === this.roomId);
     if (storeIndex > -1) {
       this.messageArray = this.storageArray[storeIndex].chats;
+      ;
     }
 
     this.join(this.currentUser.name, this.roomId);
@@ -137,7 +137,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.storageArray = this.chatService.getStorage();
     const storeIndex = this.storageArray
-      .findIndex((storage) => storage.roomId === this.roomId);
+
+      .findIndex((storage:any) => storage.roomId === this.roomId);
 
     if (storeIndex > -1) {
       this.storageArray[storeIndex].chats.push({
@@ -152,7 +153,6 @@ export class AppComponent implements OnInit, AfterViewInit {
           message: this.messageText
         }]
       };
-
       this.storageArray.push(updateStorage);
     }
 
